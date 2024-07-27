@@ -500,12 +500,11 @@ class AdminController extends Controller
             $request->map_link,
         );
         $settings = $this->settingsService->store($settingsDataDTO);
-          if($ed){
-            return redirect()->back();
-          }else{
-            return abort(404);
-          }
-
+        if($ed){
+          return redirect()->back();
+        }else{
+          return abort(404);
+        }
     }
 
     public function updateSettings(SettingsUpdateRequest $request)
