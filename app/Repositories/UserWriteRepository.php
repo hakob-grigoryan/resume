@@ -28,7 +28,7 @@ class UserWriteRepository implements UserWriteRepositoryInterface
     public function login(UserLoginDTO $userLoginDataDTO): void
     {
         $user = User::where('email', $userLoginDataDTO->getEmail())->first();
-        $user && Hash::check($userLoginDataDTO->getPassword(), $user->password ? Auth::login($user) : abort(404);
+        $user && Hash::check($userLoginDataDTO->getPassword() , $user->password) ? Auth::login($user) : abort(404);
     }
 }
 
