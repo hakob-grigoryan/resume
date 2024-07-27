@@ -2,10 +2,8 @@
 
 namespace App\Http\Services\Statistics;
 use App\Http\Services\RouteService\RedirectOrViewService;
-
-
+use App\Contracts\Repositories\UserReadRepositoryInterface;
 use Illuminate\Support\Facades\Storage;
-
 
 class StatisticsService
 {
@@ -31,9 +29,6 @@ class StatisticsService
     {
         return $this->routeService->getDbTablesCount();
     }
-
-
-
 }
 
 ?>

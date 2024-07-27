@@ -139,14 +139,9 @@ class AdminController extends Controller
             $request->email,
             $request->password
         );
+        $this->userService->register($userDataDTO);
 
-        $userRegistration = $this->userService->register($userDataDTO);
-
-        if($userRegistration){
-            return view('login');
-        }else{
-            abort(404);
-        }
+        return view('login');
     }
 
     public function loginSubmit(UserLoginRequest $request)

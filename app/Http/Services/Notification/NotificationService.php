@@ -9,7 +9,7 @@ use App\Http\DTO\Notification\CreateNotificationDTO;
 
 class NotificationService
 {
-    public int $symbolOne = 1
+    public int $symbolOne = 1;
 
     public function store(CreateNotificationDTO $notificationDataDTO): bool
     {

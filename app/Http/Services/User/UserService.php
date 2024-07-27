@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Services\User;
+
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -8,32 +10,20 @@ use Illuminate\Http\Request;
 use App\Http\DTO\User\UserRegistrationDTO;
 use App\Http\DTO\User\UserLoginDTO;
 use App\Http\DTO\User\UserUpdateDTO;
-
+use App\Contracts\Repositories\UserWriteRepositoryInterface;
 
 class UserService
 {
-    public function register(UserRegistrationDTO $userDataDTO): bool
-    {
-         $user = new User([
-            'name' => $userDataDTO->getName(),
-            'role_name' => 'user',
-            'surname' => $userDataDTO->getSurname(),
-            'email' => $userDataDTO->getEmail(),
-            'password' => bcrypt($userDataDTO->getPassword()),
-            'email_verified_at' => Carbon::now(),
-         ]);
+    public function  __construct(protected UserWriteRepositoryInterface $userWriteRepository) {}
 
-        return $user->save();
+    public function register(UserRegistrationDTO $userDataDTO): void
+    {
+        $this->userWriteRepository->register($userDataDTO);
     }
 
    public function login(UserLoginDTO $userLoginDataDTO): void
    {
-       $user = User::where('email', $userLoginDataDTO->getEmail())->first();
-       if ($user && Hash::check($userLoginDataDTO->getPassword(), $user->password)) {
-           Auth::login($user);
-       } else {
-           abort(404);
-       }
+        $this->userWriteRepository->login($userLoginDataDTO);
    }
 
 
